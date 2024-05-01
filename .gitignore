@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+.DS_Store
+openpowerlifting-2024-04-20-4c19bc9c.csv
