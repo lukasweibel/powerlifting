@@ -29,6 +29,7 @@ public class PowerlifterAnalyse {
     Model model;
 
     public void trainModel() {
+        System.setProperty("ai.djl.logging.level", "debug");
         Block block = new SequentialBlock()
                 .add(Linear.builder().setUnits(128).build())
                 .add(Activation.reluBlock())
@@ -113,8 +114,8 @@ public class PowerlifterAnalyse {
 
     public double predict(float[] features) {
         if (model == null) {
-            // trainModel();
-            loadModel();
+            trainModel();
+            // loadModel();
         }
         try (NDManager manager = NDManager.newBaseManager()) {
 
