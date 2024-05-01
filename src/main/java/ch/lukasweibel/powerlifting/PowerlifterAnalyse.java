@@ -28,6 +28,11 @@ public class PowerlifterAnalyse {
 
     Model model;
 
+    private static PowerlifterAnalyse INSTANCE;
+
+    private PowerlifterAnalyse() {
+    }
+
     public void trainModel() {
         System.setProperty("ai.djl.logging.level", "debug");
         Block block = new SequentialBlock()
@@ -148,6 +153,14 @@ public class PowerlifterAnalyse {
             System.err.println("Failed to load model: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    public static PowerlifterAnalyse getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new PowerlifterAnalyse();
+        }
+
+        return INSTANCE;
     }
 
 }

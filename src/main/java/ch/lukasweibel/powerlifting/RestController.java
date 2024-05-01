@@ -10,13 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
 
-    PowerlifterAnalyse powerlifterAnalyse = new PowerlifterAnalyse();
-
     @GetMapping("/trainmodel")
     public String getMethodName() {
         // CSVAccessor csvAccessor = new CSVAccessor();
         // ArrayList<Powerlifter> powerlifters = csvAccessor.readEntities();
-        powerlifterAnalyse.trainModel();
+        PowerlifterAnalyse.getInstance().trainModel();
         return "hello world";
     }
 
@@ -27,7 +25,7 @@ public class RestController {
         float sex = "F".equalsIgnoreCase((String) requestBody.get("sex")) ? 1f : 0f;
         int equipment = Integer.parseInt((String) requestBody.get("equipment"));
         float[] featuresForPrediction = new float[] { sex, equipment, age, weight };
-        double prediction = powerlifterAnalyse.predict(featuresForPrediction);
+        double prediction = PowerlifterAnalyse.getInstance().predict(featuresForPrediction);
         return ResponseEntity.ok(prediction);
     }
 }
