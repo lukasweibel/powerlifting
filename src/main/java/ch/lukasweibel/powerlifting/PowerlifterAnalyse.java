@@ -54,7 +54,7 @@ public class PowerlifterAnalyse {
         trainer.setMetrics(metrics);
 
         int batchSize = 32;
-        int numEpochs = 50;
+        int numEpochs = 20;
 
         try (NDManager manager = NDManager.newBaseManager()) {
             List<String> lines;
