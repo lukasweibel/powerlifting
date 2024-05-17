@@ -1,12 +1,36 @@
-### read data from csv
+### trainmodel
 GET http://localhost:8080/trainmodel HTTP/1.1
 
-### read data from csv
+### predict
 POST http://localhost:8080/predict HTTP/1.1
-Content-Type: "application/json"
+Content-Type: application/json
+
 {
-    "age": 21,
-    "weight": 184.5,
+    "age": "21",
+    "weight": "70",
+    "sex": "F",
+    "equipment": "0"
+}
+
+### predict
+POST http://localhost:8080/predict HTTP/1.1
+Content-Type: application/json
+
+{
+    "age": "21",
+    "weight": "70",
     "sex": "M",
     "equipment": "0"
 }
+
+### predict
+POST http://localhost:8080/predict HTTP/1.1
+Content-Type: application/json
+
+{
+    "age": "30",
+    "weight": "90",
+    "sex": "F",
+    "equipment": "0"
+}
+

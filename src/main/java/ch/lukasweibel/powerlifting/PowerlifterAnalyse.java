@@ -16,10 +16,10 @@ import ai.djl.training.loss.Loss;
 import ai.djl.translate.NoopTranslator;
 import ai.djl.translate.TranslateException;
 import ai.djl.metric.Metrics;
+import ai.djl.pytorch.engine.PtModel;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
@@ -34,6 +34,7 @@ public class PowerlifterAnalyse {
     }
 
     public void trainModel() {
+        System.setProperty("ai.djl.default_engine", "PyTorch");
         System.setProperty("ai.djl.logging.level", "debug");
         Block block = new SequentialBlock()
                 .add(Linear.builder().setUnits(128).build())
@@ -54,7 +55,7 @@ public class PowerlifterAnalyse {
         trainer.setMetrics(metrics);
 
         int batchSize = 32;
-        int numEpochs = 20;
+        int numEpochs = 50;
 
         try (NDManager manager = NDManager.newBaseManager()) {
             List<String> lines;
@@ -106,6 +107,12 @@ public class PowerlifterAnalyse {
 
                 model.save(Paths.get("model"), "squat-prediction");
 
+                if (model instanceof PtModel) {
+                    System.out.println("It is a PT Model");
+                } else {
+                    System.out.println("It is no PT Model");
+                }
+
                 System.out.println("Saved Model!");
             } catch (IOException e) {
                 // TODO Auto-generated catch block
@@ -120,7 +127,6 @@ public class PowerlifterAnalyse {
     public double predict(float[] features) {
         if (model == null) {
             trainModel();
-            // loadModel();
         }
         try (NDManager manager = NDManager.newBaseManager()) {
 
@@ -140,26 +146,10 @@ public class PowerlifterAnalyse {
         return 0;
     }
 
-    // Doesn't work
-    public void loadModel() {
-        if (model == null) {
-            model = Model.newInstance("squat-prediction");
-        }
-        try {
-            Path modelDir = Paths.get("model");
-            model.load(modelDir, "squat-prediction");
-            System.out.println("Model loaded successfully.");
-        } catch (IOException | MalformedModelException e) {
-            System.err.println("Failed to load model: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
     public static PowerlifterAnalyse getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new PowerlifterAnalyse();
         }
-
         return INSTANCE;
     }
 

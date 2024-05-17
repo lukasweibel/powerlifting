@@ -12,8 +12,6 @@ public class RestController {
 
     @GetMapping("/trainmodel")
     public String getMethodName() {
-        // CSVAccessor csvAccessor = new CSVAccessor();
-        // ArrayList<Powerlifter> powerlifters = csvAccessor.readEntities();
         PowerlifterAnalyse.getInstance().trainModel();
         return "hello world";
     }

@@ -8,5 +8,6 @@ public class PowerliftingApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PowerliftingApplication.class, args);
+		PowerlifterAnalyse.getInstance().trainModel();
 	}
 }

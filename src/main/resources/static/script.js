@@ -1,4 +1,3 @@
-// JavaScript to handle form submission
 document.getElementById('predictionForm').addEventListener('submit', function(event) {
     event.preventDefault();
     
@@ -7,7 +6,6 @@ document.getElementById('predictionForm').addEventListener('submit', function(ev
     const sex = document.getElementById('sex').value;
     const equipment = document.getElementById('equipment').value;
 
-    // Prepare data to be sent to the server
     const data = {
       age: parseInt(age),
       weight: parseFloat(weight),
@@ -15,7 +13,6 @@ document.getElementById('predictionForm').addEventListener('submit', function(ev
       equipment: parseInt(equipment)
     };
 
-    // Send data to server via POST request
     fetch('/predict', {
       method: 'POST',
       headers: {
@@ -25,7 +22,7 @@ document.getElementById('predictionForm').addEventListener('submit', function(ev
     })
     .then(response => response.json())
     .then(data => {
-      document.getElementById('predictionResult').innerHTML = 'Prediction: ' + data;
+      document.getElementById('predictionResult').innerHTML = 'Prediction: ' + data + ' kg';
     })
     .catch((error) => {
       console.error('Error:', error);
